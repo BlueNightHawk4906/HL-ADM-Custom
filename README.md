@@ -4,8 +4,10 @@ This fork is for my future projects. You can also use it if you want but make su
 
 Features:
 =========
-Buzer Shadows
+Buzer Shadows,
 Animatable Viewangles
+
+Full list of features will be included in the future.
 
 Original Description :
 ======================
