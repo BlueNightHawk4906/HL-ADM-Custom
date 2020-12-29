@@ -304,6 +304,7 @@ HUD_CreateEntities
 Gives us a chance to add additional entities to the render this frame
 =========================
 */
+void H_ClearBuffer(void);
 void DLLEXPORT HUD_CreateEntities( void )
 {
 //	RecClCreateEntities();
@@ -312,6 +313,7 @@ void DLLEXPORT HUD_CreateEntities( void )
 	Beams();
 #endif
 
+	H_ClearBuffer();
 	Bench_AddObjects();
 
 	// Add in any game specific objects
@@ -369,6 +371,12 @@ void DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const struct
 	// Client side sound
 	case 5004:		
 		gEngfuncs.pfnPlaySoundByNameAtLocation( (char *)event->options, 1.0, (float *)&entity->attachment[0] );
+		break;
+	case 7001:
+		viewparams.iCamAttchment = atoi(event->options);// input should be attachment number
+		break;
+	case 7002:
+		viewparams.iConstCamAttchment = atoi(event->options);// input should be attachment number
 		break;
 	default:
 		break;

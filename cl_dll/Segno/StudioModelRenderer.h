@@ -10,6 +10,7 @@
 #if defined( _WIN32 )
 #pragma once
 #endif
+
 // buz start
 
 typedef vec_t myvec3_t[3];
@@ -17,14 +18,16 @@ typedef vec_t myvec3_t[3];
 // disable "identifier was truncated to '255' characters in the browser information" messages
 #pragma warning( disable: 4786 )
 
-
+#include "windows.h"
+#include "gl/gl.h"
+#include "gl/glext.h"
 #include <assert.h>
 
 #include <vector>
 #include <map>
 #include <string>
 
-const int MaxShadowFaceCount = 2000;
+const MaxShadowFaceCount = 2000;
 
 #define CONPRINT gEngfuncs.Con_Printf
 
@@ -41,7 +44,7 @@ struct Edge
 struct Face
 {
 	Face() {}
-	Face(GLushort v0, GLushort v1, GLushort v2) : vertex0(v0), vertex1(v1), vertex2(v2) {}
+	Face(GLushort v0, GLushort v1, GLushort v2): vertex0(v0), vertex1(v1), vertex2(v2) {}
 	GLushort vertex0;
 	GLushort vertex1;
 	GLushort vertex2;
@@ -61,6 +64,7 @@ struct ModelExtraData
 typedef std::map<std::string, ModelExtraData> ExtraDataMap;
 
 // buz end
+
 /*
 ====================
 CStudioModelRenderer
@@ -145,14 +149,8 @@ public:
 	// Estimate gait frame for player
 	virtual void StudioEstimateGait ( entity_state_t *pplayer );
 
-	// Estimate gait frame for monster
-	virtual void StudioEstimateGait_M( entity_state_t *pmon, player_info_t *pmonstate );
-
 	// Process movement of player
-	virtual void StudioProcessGait( entity_state_t *pplayer );
-
-	// Process movement of monster
-	virtual void StudioProcessGait_M( entity_state_t *pmon, player_info_t *pmonstate );
+	virtual void StudioProcessGait ( entity_state_t *pplayer );
 
 public:
 
@@ -240,27 +238,28 @@ public:
 	// Concatenated bone and light transforms
 	float			(*m_pbonetransform) [ MAXSTUDIOBONES ][ 3 ][ 4 ];
 	float			(*m_plighttransform)[ MAXSTUDIOBONES ][ 3 ][ 4 ];
+
 private:
 	// buz start
 	ExtraDataMap	m_ExtraData;
-	ModelExtraData* m_pCurretExtraData;
+	ModelExtraData	*m_pCurretExtraData;
 
 	myvec3_t		m_ShadowDir;
+	
+	void			SetupModelExtraData ( void );
+	void			BuildFaces ( SubModelData &dst, mstudiomodel_t *src );
+	void			BuildEdges ( SubModelData &dst, mstudiomodel_t *src );
+	void			AddEdge ( SubModelData &dst, int face, int v0, int v1 );
 
-	void			SetupModelExtraData(void);
-	void			BuildFaces(SubModelData& dst, mstudiomodel_t* src);
-	void			BuildEdges(SubModelData& dst, mstudiomodel_t* src);
-	void			AddEdge(SubModelData& dst, int face, int v0, int v1);
+	void			DrawShadowsForEnt ( void );
+	void			DrawShadowVolume ( SubModelData &data, mstudiomodel_t *model );
 
-	void			DrawShadowsForEnt(void);
-	void			DrawShadowVolume(SubModelData& data, mstudiomodel_t* model);
+	cvar_t *sv_skyvec_x;
+	cvar_t *sv_skyvec_y;
+	cvar_t *sv_skyvec_z;
 
 public:
-	void			GetShadowVector(myvec3_t& vecOut);
-
-	cvar_t* sv_skyvec_x;
-	cvar_t* sv_skyvec_y;
-	cvar_t* sv_skyvec_z;
+	void			GetShadowVector( myvec3_t &vecOut );
 };
 
 #endif // STUDIOMODELRENDERER_H

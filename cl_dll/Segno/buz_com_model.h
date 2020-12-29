@@ -28,7 +28,6 @@
 
 #define STUDIO_RENDER 1
 #define STUDIO_EVENTS 2
-#define STUDIO_MONSTER 16
 
 #define MAX_CLIENTS         32
 #define MAX_EDICTS          900
@@ -69,7 +68,7 @@ typedef enum
 
 typedef enum
 {
-    ST_SYNC = 0,
+    ST_SYNC=0,
     ST_RAND
 } synctype_t;
 
@@ -123,8 +122,8 @@ typedef struct texture_s
     unsigned    width, height;
     int         anim_total;             // total tenths in sequence ( 0 = no)
     int         anim_min, anim_max;     // time for this frame min <=time< max
-    struct texture_s* anim_next;        // in the animation sequence
-    struct texture_s* alternate_anims;  // bmodels in frame 1 use these
+    struct texture_s *anim_next;        // in the animation sequence
+    struct texture_s *alternate_anims;  // bmodels in frame 1 use these
     unsigned    offsets[MIPLEVELS];     // four mip maps stored
     unsigned    paloffset;
 } texture_t;
@@ -137,11 +136,11 @@ typedef struct texture_s
     char        name[16];
     unsigned    width, height;
     int         gl_texturenum;
-    struct msurface_s* texturechain;  // for gl_texsort drawing
+    struct msurface_s   *texturechain;  // for gl_texsort drawing
     int         anim_total;             // total tenths in sequence ( 0 = no)
     int         anim_min, anim_max;     // time for this frame min <=time< max
-    struct texture_s* anim_next;        // in the animation sequence
-    struct texture_s* alternate_anims;  // bmodels in frmae 1 use these
+    struct texture_s *anim_next;        // in the animation sequence
+    struct texture_s *alternate_anims;  // bmodels in frmae 1 use these
     unsigned    offsets[MIPLEVELS];     // four mip maps stored
 } texture_t;
 
@@ -156,7 +155,7 @@ typedef struct
                                 // [i][3] is the s/t offset relative to the origin.
                                 // s or t = dot(3Dpoint,vecs[i])+vecs[i][3]
     float       mipadjust;      // ?? mipmap limits for very small surfaces
-    texture_t* texture;
+    texture_t   *texture;
     int         flags;          // sky or slime, no lightmap or 256 subdivision
 } mtexinfo_t;
 
@@ -167,11 +166,11 @@ typedef struct
 
 typedef struct glpoly_s
 {
-    struct  glpoly_s* next;
-    struct  glpoly_s* chain;
-    int     numverts;
-    int     flags;          	// for SURF_UNDERWATER
-    float verts[4][VERTEXSIZE];   // variable sized (xyz s1t1 s2t2)
+	struct  glpoly_s    *next;
+	struct  glpoly_s    *chain;
+	int     numverts;
+	int     flags;          	// for SURF_UNDERWATER
+	float verts[4][VERTEXSIZE];   // variable sized (xyz s1t1 s2t2)
 } glpoly_t;
 
 #endif
@@ -184,18 +183,18 @@ typedef struct glpoly_s
 //  Software Mode - QW 'model.h'
 typedef struct mnode_s
 {
-    // common with leaf
+// common with leaf
     int         contents;       // 0, to differentiate from leafs
     int         visframe;       // node needs to be traversed if current
 
     short       minmaxs[6];     // for bounding box culling
 
 
-    struct mnode_s* parent;
+    struct mnode_s  *parent;
 
-    // node specific
-    mplane_t* plane;
-    struct mnode_s* children[2];
+// node specific
+    mplane_t    *plane;
+    struct mnode_s  *children[2];
 
     unsigned short      firstsurface;
     unsigned short      numsurfaces;
@@ -206,17 +205,17 @@ typedef struct mnode_s
 //  hardware mode - QW 'gl_model.h'
 typedef struct mnode_s
 {
-    // common with leaf
+// common with leaf
     int             contents;       // 0, to differentiate from leafs
     int             visframe;       // node needs to be traversed if current
 
     float           minmaxs[6];     // for bounding box culling
 
-    struct mnode_s* parent;
+    struct mnode_s  *parent;
 
-    // node specific
-    mplane_t* plane;
-    struct mnode_s* children[2];
+// node specific
+    mplane_t        *plane;
+    struct mnode_s  *children[2];
 
     unsigned short      firstsurface;
     unsigned short      numsurfaces;
@@ -231,8 +230,8 @@ typedef struct decal_s      decal_t;
 // JAY: Compress this as much as possible
 struct decal_s
 {
-    decal_t* pnext;         // linked list for each surface
-    msurface_t* psurface;      // Surface id for persistence / unlinking
+    decal_t     *pnext;         // linked list for each surface
+    msurface_t  *psurface;      // Surface id for persistence / unlinking
     short       dx;             // Offsets into surface texture (in texture coordinates, so we don't need floats)
     short       dy;
     short       texture;        // Decal texture
@@ -249,19 +248,19 @@ struct decal_s
 //  Software Mode - QW 'model.h'
 typedef struct mleaf_s
 {
-    // common with node
+// common with node
     int         contents;       // wil be a negative contents number
     int         visframe;       // node needs to be traversed if current
 
     short       minmaxs[6];     // for bounding box culling
 
-    struct mnode_s* parent;
+    struct mnode_s  *parent;
 
-    // leaf specific
-    byte* compressed_vis;
-    struct efrag_s* efrags;
+// leaf specific
+    byte        *compressed_vis;
+    struct efrag_s  *efrags;
 
-    msurface_t** firstmarksurface;
+    msurface_t  **firstmarksurface;
     int         nummarksurfaces;
     int         key;            // BSP sequence number for leaf's contents
     byte        ambient_sound_level[NUM_AMBIENTS];
@@ -271,19 +270,19 @@ typedef struct mleaf_s
 //  hardware renderer - QW 'gl_model.h'
 typedef struct mleaf_s
 {
-    // common with node
+// common with node
     int         contents;       // wil be a negative contents number
     int         visframe;       // node needs to be traversed if current
 
     float       minmaxs[6];     // for bounding box culling
 
-    struct mnode_s* parent;
+    struct mnode_s  *parent;
 
-    // leaf specific
-    byte* compressed_vis;
-    struct efrag_s* efrags;
+// leaf specific
+    byte        *compressed_vis;
+    struct efrag_s  *efrags;
 
-    msurface_t** firstmarksurface;
+    msurface_t  **firstmarksurface;
     int         nummarksurfaces;
     int         key;            // BSP sequence number for leaf's contents
     byte        ambient_sound_level[NUM_AMBIENTS];
@@ -301,7 +300,7 @@ struct msurface_s
     int         dlightbits;     // dynamically generated. Indicates if the surface illumination
                                 // is modified by an animated light.
 
-    mplane_t* plane;         // pointer to shared plane
+    mplane_t    *plane;         // pointer to shared plane
     int         flags;          // see SURF_ #defines
 
     int         firstedge;  // look up in model->surfedges[], negative numbers
@@ -311,20 +310,20 @@ struct msurface_s
 // 06/23/2002 MAH
 // WARNING: this structure is not defined anywhere in the HL SDK 2.2
 //  headers.   See Quakeworld client software mode source for this
-    struct surfcache_s* cachespots[MIPLEVELS];
+    struct surfcache_s  *cachespots[MIPLEVELS];
 
     short       texturemins[2]; // smallest s/t position on the surface.
     short       extents[2];     // ?? s/t texture size, 1..256 for all non-sky surfaces
 
-    mtexinfo_t* texinfo;
+    mtexinfo_t  *texinfo;
 
-    // lighting info
+// lighting info
     byte        styles[MAXLIGHTMAPS]; // index into d_lightstylevalue[] for animated lights
                                       // no one surface can be effected by more than 4
                                       // animated lights.
-    color24* samples;           // actual light map data for this surface
+    color24     *samples;           // actual light map data for this surface
 
-    decal_t* pdecals;
+    decal_t     *pdecals;
 };
 
 #else
@@ -340,7 +339,7 @@ typedef struct msurface_s
 {
     int         visframe;       // should be drawn when node is crossed
 
-    mplane_t* plane;
+    mplane_t    *plane;
     int         flags;
 
     int         firstedge;  // look up in model->surfedges[], negative numbers
@@ -351,12 +350,12 @@ typedef struct msurface_s
 
     int         light_s, light_t;           // gl lightmap coordinates
 
-    glpoly_t* polys;                     // multiple if warped
-    struct msurface_s* texturechain;
+    glpoly_t    *polys;                     // multiple if warped
+    struct msurface_s   *texturechain;
 
-    mtexinfo_t* texinfo;
+    mtexinfo_t  *texinfo;
 
-    // lighting info
+// lighting info
     int         dlightframe;
     int         dlightbits;
 
@@ -366,8 +365,8 @@ typedef struct msurface_s
     qboolean    cached_dlight;              // true if dynamic light in cache
 
 //  byte        *samples;                   // [numstyles*surfsize]
-    color24* samples;                   // note: this is the actual lightmap data for this surface
-    decal_t* pdecals;
+    color24     *samples;                   // note: this is the actual lightmap data for this surface
+    decal_t     *pdecals;
 
 } msurface_t;
 #endif
@@ -388,8 +387,8 @@ typedef struct
 //      and hardware renderers 'model.h' and 'gl_model.h'
 typedef struct hull_s
 {
-    dclipnode_t* clipnodes;
-    mplane_t* planes;
+    dclipnode_t *clipnodes;
+    mplane_t    *planes;
     int         firstclipnode;
     int         lastclipnode;
     vec3_t      clip_mins;
@@ -400,13 +399,13 @@ typedef struct hull_s
 #define CACHE_USER
 typedef struct cache_user_s
 {
-    void* data;
+    void    *data;
 } cache_user_t;
 #endif
 
 typedef struct model_s
 {
-    char        name[MAX_MODEL_NAME];     // +0x000
+    char        name[ MAX_MODEL_NAME ];     // +0x000
     qboolean    needload;                   // +0x040   bmodels and sprites don't cache normally
 
     modtype_t   type;                       // +0x044
@@ -427,52 +426,52 @@ typedef struct model_s
     int         firstmodelsurface, nummodelsurfaces;    // +0x070, +0x074
 
     int         numsubmodels;               // +0x078
-    dmodel_t* submodels;                 // +0x07C
+    dmodel_t    *submodels;                 // +0x07C
 
     int         numplanes;                  // +0x080
-    mplane_t* planes;                    // +0x084
+    mplane_t    *planes;                    // +0x084
 
     int                 numleafs;           // +0x088      number of visible leafs, not counting 0
-    struct mleaf_s* leafs;             // +0x08C
+    struct mleaf_s      *leafs;             // +0x08C
 
     int         numvertexes;                // +0x090
-    mvertex_t* vertexes;                  // +0x094
+    mvertex_t   *vertexes;                  // +0x094
 
     int         numedges;                   // +0x098
-    medge_t* edges;                     // +0x09C
+    medge_t     *edges;                     // +0x09C
 
     int         numnodes;                   // +0x0A0
-    mnode_t* nodes;                     // +0x0A4
+    mnode_t     *nodes;                     // +0x0A4
 
     int         numtexinfo;                 // +0x0A8
-    mtexinfo_t* texinfo;                   // +0x0AC
+    mtexinfo_t  *texinfo;                   // +0x0AC
 
     int         numsurfaces;                // +0x0B0
-    msurface_t* surfaces;                  // +0x0B4
+    msurface_t  *surfaces;                  // +0x0B4
 
     int         numsurfedges;
-    int* surfedges;
+    int         *surfedges;
 
     int         numclipnodes;
-    dclipnode_t* clipnodes;
+    dclipnode_t *clipnodes;
 
     int         nummarksurfaces;
-    msurface_t** marksurfaces;
+    msurface_t  **marksurfaces;
 
     hull_t      hulls[MAX_MAP_HULLS];
 
     int         numtextures;
-    texture_t** textures;
+    texture_t   **textures;
 
-    byte* visdata;
+    byte        *visdata;
 
-    color24* lightdata;
+    color24     *lightdata;
 
-    char* entities;
+    char        *entities;
 
-    //
-    // additional model data
-    //
+//
+// additional model data
+//
     cache_user_t    cache;      // only access through Mod_Extradata
 
 } model_t;
@@ -484,7 +483,7 @@ typedef struct alight_s
     int         ambientlight;   // clip at 128
     int         shadelight;     // clip at 192 - ambientlight
     vec3_t      color;
-    float* plightvec;
+    float       *plightvec;
 } alight_t;
 
 typedef struct auxvert_s
@@ -505,10 +504,10 @@ typedef struct player_info_s
     int     userid;
 
     // User info string
-    char    userinfo[MAX_INFO_STRING];
+    char    userinfo[ MAX_INFO_STRING ];
 
     // Name
-    char    name[MAX_SCOREBOARDNAME];
+    char    name[ MAX_SCOREBOARDNAME ];
 
     // Spectator or not, unused
     int     spectator;
@@ -533,6 +532,6 @@ typedef struct player_info_s
     customization_t customdata;
 } player_info_t;
 
-extern mvertex_t* globalVertexTable;
+extern mvertex_t *globalVertexTable;
 
 #endif // #if !defined(COM_MODEL_H)

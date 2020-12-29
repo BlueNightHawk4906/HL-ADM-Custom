@@ -33,11 +33,13 @@ HUD_DrawNormalTriangles
 Non-transparent triangles-- add them here
 =================
 */
+extern void DrawShadows();
 void DLLEXPORT HUD_DrawNormalTriangles( void )
 {
 //	RecClDrawNormalTriangles();
 
 	gHUD.m_Spectator.DrawOverview();
+	DrawShadows();
 }
 
 #if defined( _TFC )
@@ -128,5 +130,4 @@ void HUD_DrawOrthoTriangles(void)
 	ADM_RendDrawLine(0.1f, 0.85f, 0.8f, 0.85f);
 	ADM_RendDrawLine(0.2f, 0.9f, 0.1f, 0.85f);
 	ADM_RendDrawLine(0.9f, 0.9f, 0.8f, 0.85f);
-
 }

@@ -164,6 +164,25 @@ public:
 };
 
 
+typedef struct timevars_s {
+	double flOldTime;
+	double flTime;
+	double flTimeDelta;
+	void Reset(void)
+	{
+		flOldTime = flTime = flTimeDelta = 0;
+	}
+	void CalcDelta(void)
+	{
+		extern globalvars_t* gpGlobals;
+		flOldTime = flTime;
+		flTime += gpGlobals->frametime;
+		flTimeDelta = flTime - flOldTime;
+	}
+} timevars_t;
+
+extern timevars_t timevars;
+
 //
 // Base Entity.  All entity types derive from this
 //

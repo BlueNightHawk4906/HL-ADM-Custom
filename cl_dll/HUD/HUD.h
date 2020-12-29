@@ -808,3 +808,5 @@ extern cvar_t* v_rollspeed;
 extern cvar_t* v_rollangle;
 
 extern cvar_t* developer;
+
+#include "Segno/segno_com.h"

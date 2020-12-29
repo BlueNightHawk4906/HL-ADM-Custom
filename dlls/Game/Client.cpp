@@ -806,12 +806,16 @@ void ServerDeactivate( void )
 	ClearSoundListServer(); // Clear serverside sound list -Admer
 }
 
+timevars_t timevars;
+
 void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax )
 {
 	int				i;
 	CBaseEntity		*pClass;
 
 	ClearSoundListServer();
+
+	timevars.Reset();
 
 	// Every call to ServerActivate should be matched by a call to ServerDeactivate
 	g_serveractive = 1;
@@ -925,6 +929,8 @@ void ParmsChangeLevel( void )
 //
 void StartFrame( void )
 {
+	timevars.CalcDelta();
+
 	if ( g_pGameRules )
 		g_pGameRules->Think();
 

@@ -27,7 +27,7 @@
 // Since ADM should not affect HL gameplay,
 // I've decided to disable this feature as it makes a significant change in aiming,
 // as well as bringing back the old view bobbing.
-#define ADM_CustomClientPunch 0
+#define ADM_CustomClientPunch 1
 
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
@@ -943,6 +943,8 @@ void V_CalcRefdef_HL( struct ref_params_s *pparams )
 
 	// Include client side punch, too
 	VectorAdd( pparams->viewangles, (float *)&ev_punchangle, pparams->viewangles );
+	if (viewparams.iCamAttchment)
+		VectorAdd( pparams->viewangles, (float *)&viewparams.camangles[viewparams.iCamAttchment-1], pparams->viewangles );
 
 	V_DropPunchAngle( pparams->frametime, (float *)&ev_punchangle );
 
@@ -1536,10 +1538,10 @@ void V_CalcRefdef_ADM( struct ref_params_s* pparams )
 	v_origin = pparams->vieworg;
 }
 
+
 void V_CalcNormalRefdef( struct ref_params_s* pparams )
 {
 	v_velocity = pparams->simvel;
-
 	V_CalcRefdef_HL( pparams );
 	//V_CalcRefdef_ADM( pparams );
 }
@@ -2279,6 +2281,9 @@ void V_CalcSpectatorRefdef ( struct ref_params_s * pparams )
 	VectorCopy ( v_origin, pparams->vieworg );
 
 }
+void SetupBuffer(void);
+void UpdateViewParams(struct ref_params_s* pparams);
+extern cvar_s* g_cvShadows;
 
 void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 {
@@ -2297,6 +2302,13 @@ void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 	{
 		V_CalcNormalRefdef ( pparams );
 	}
+
+	UpdateViewParams(pparams);
+	com.frametime = pparams->frametime;
+
+	// buz
+	if (g_cvShadows->value)
+		SetupBuffer();
 
 	System::SetPausedMode( pparams->paused );
 

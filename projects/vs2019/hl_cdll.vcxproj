@@ -169,6 +169,8 @@ call ..\..\filecopy.bat "$(TargetDir)$(TargetName).pdb" "$(ModDir)\cl_dlls\$(Tar
     <ClCompile Include="..\..\cl_dll\Rendering\StudioUtil.cpp" />
     <ClCompile Include="..\..\cl_dll\Rendering\Tri.cpp" />
     <ClCompile Include="..\..\cl_dll\Rendering\View.cpp" />
+    <ClCompile Include="..\..\cl_dll\Segno\Segno_Buz_Shadows.cpp" />
+    <ClCompile Include="..\..\cl_dll\Segno\segno_com.cpp" />
     <ClCompile Include="..\..\cl_dll\Util.cpp" />
     <ClCompile Include="..\..\cl_dll\VGUI\vgui_ClassMenu.cpp" />
     <ClCompile Include="..\..\cl_dll\VGUI\vgui_ConsolePanel.cpp" />
@@ -267,6 +269,7 @@ call ..\..\filecopy.bat "$(TargetDir)$(TargetName).pdb" "$(ModDir)\cl_dlls\$(Tar
     <ClInclude Include="..\..\cl_dll\Rendering\StudioUtil.h" />
     <ClInclude Include="..\..\cl_dll\Rendering\Tri.h" />
     <ClInclude Include="..\..\cl_dll\Rendering\View.h" />
+    <ClInclude Include="..\..\cl_dll\Segno\segno_com.h" />
     <ClInclude Include="..\..\cl_dll\TFDefs.h" />
     <ClInclude Include="..\..\cl_dll\UtilVector.h" />
     <ClInclude Include="..\..\cl_dll\VGUI\vgui_ConsolePanel.h" />

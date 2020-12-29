@@ -71,6 +71,9 @@
     <Filter Include="Sources\ADM\Components">
       <UniqueIdentifier>{0a5744f6-091e-4317-99f6-e7df39d488ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Segno">
+      <UniqueIdentifier>{77dbab49-b2e1-422b-90fb-a9e7c1908bc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp">
@@ -417,6 +420,12 @@
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\ADM\Components\SimpleSky.cpp">
       <Filter>Sources\ADM\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cl_dll\Segno\segno_com.cpp">
+      <Filter>Sources\Segno</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cl_dll\Segno\Segno_Buz_Shadows.cpp">
+      <Filter>Sources\Segno</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -767,6 +776,9 @@
     </ClInclude>
     <ClInclude Include="..\..\common\winsani_out.h">
       <Filter>Sources\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\Segno\segno_com.h">
+      <Filter>Sources\Segno</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
