@@ -1,3 +1,14 @@
+Advanced Development Mod : Custom Build( Segno )
+================================================
+This fork is for my future projects. You can also use it if you want but make sure to give the proper credits where needed.
+
+Features:
+=========
+Buzer Shadows
+Animatable Viewangles
+
+Original Description :
+======================
 Advanced Development Mod
 ======================
 
